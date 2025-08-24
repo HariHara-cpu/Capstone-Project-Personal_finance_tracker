@@ -1,0 +1,114 @@
+<%- include('../partials/header') %>
+    <link rel="stylesheet" href="/css/login.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<div id="login-container">
+    <h2>Add Transaction</h2>
+    <form action="/add" method="POST">
+        <div>
+            <label for="amount">Amount</label>
+            <input type="text" name="amount" placeholder="Enter Amount" required />
+        </div>
+        <div class="mb-3">
+            <label for="category">Category:</label>
+            <select name="category" id="category" required onchange="handleCategoryChange(this.value)">
+                <option value="">--Select--</option>
+                <option value="Food" data-type="expense">Food</option>
+                <option value="Shopping" data-type="expense">Shopping</option>
+                <option value="Rent" data-type="expense">Rent</option>
+                <option value="Transportation" data-type="expense">Transportation</option>
+                <option value="Entertainment" data-type="expense">Entertainment</option>
+                <option value="Utilities" data-type="expense">Utilities</option>
+                <option value="Healthcare" data-type="expense">Healthcare</option>
+                <option value="Education" data-type="expense">Education</option>
+                <option value="Salary" data-type="income">Salary</option>
+                <option value="Freelance" data-type="income">Freelance</option>
+                <option value="Investments" data-type="income">Investments</option>
+                <option value="Gifts" data-type="income">Gifts</option>
+                <option value="custom">Other (Enter your own)</option>
+            </select>
+        </div>
+        <div class="mb-3" id="customCategoryContainer" style="display: none;">
+            <label for="customCategory">Custom Category:</label>
+            <input type="text" name="customCategory" id="customCategory" placeholder="Enter your category">
+        </div>
+
+        <div class="mb-3">
+            <label for="type">Type:</label>
+            <select name="type" id="type" required>
+                <option value="">--Select--</option>
+                <option value="income">Income</option>
+                <option value="expense">Expense</option>
+            </select>
+        </div>
+        
+        <div>
+            <label for="description">Description</label>
+            <input type="text" name="description" placeholder="Enter Description" required />
+        </div>
+        <div>
+            <label for="date">Date</label>
+            <input type="date" name="date" placeholder="Enter Date" required />
+        </div>
+        
+        <button type="submit" class="btn">Add</button>
+    </form>
+</div>
+
+<script>
+  function toggleCustomCategory(value) {
+    const customField = document.getElementById("customCategoryContainer");
+    if (value === "custom") {
+      customField.style.display = "block";
+      document.getElementById("customCategory").required = true;
+    } else {
+      customField.style.display = "none";
+      document.getElementById("customCategory").required = false;
+    }
+  }
+  
+  const categoryTypeMap = {
+    "Food": "expense",
+    "Rent": "expense",
+    "Transportation": "expense",
+    "Entertainment": "expense",
+    "Utilities": "expense",
+    "Healthcare": "expense",
+    "Education": "expense",
+    "Shopping": "expense",
+    "Salary": "income",
+    "Freelance": "income",
+    "Investments": "income",
+    "Gifts": "income"
+  };
+
+  function handleCategoryChange(category) {
+    const typeSelect = document.getElementById("type");
+    const customField = document.getElementById("customCategoryContainer");
+
+    if (category === "custom") {
+      customField.style.display = "block";
+      document.getElementById("customCategory").required = true;
+
+      typeSelect.disabled = false;
+      typeSelect.value = ""; // Let user choose
+    } else {
+      customField.style.display = "none";
+      document.getElementById("customCategory").required = false;
+
+      // Auto-select and lock type
+      const autoType = categoryTypeMap[category];
+      if (autoType) {
+        typeSelect.value = autoType;
+        typeSelect.disabled = true;
+      } else {
+        typeSelect.value = "";
+        typeSelect.disabled = false;
+      }
+    }
+  }
+
+</script>
+
+<%- include('../partials/footer') %>

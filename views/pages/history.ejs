@@ -1,0 +1,204 @@
+<%- include('../partials/header') %>
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+<body>
+    <header class="d-flex flex-wrap align-items-center justify-content-between py-4 mb-5 border-bottom shadow-sm">
+      <a href="/" class="d-flex align-items-center mb-2 mb-md-0 text-dark text-decoration-none">
+        <span class="navbar-brand fs-4 fw-bold text-success">💰 Finance Tracker</span>
+      </a>
+      
+      <div class="text-end">
+        <a href="/" class="btn btn-primary">Home</a>
+        <a href="/dashboard" class="btn btn-primary">Dashboard</a>
+          <!-- <a href="/logout" class="btn-logout">Logout</a> -->
+           <button class="btn-logout" onclick="window.location.href='/logout'">Logout</button>
+      </div>
+    </header>
+  <div class="container mt-5">
+    <!-- Welcome Section -->
+    <div class="welcome-section mb-4">
+      <h2 class="display-5 fw-bold text-dark">Welcome, <%= user.name %> 👋</h2>
+      <p class="text-secondary">Manage your finances with ease and track your financial journey!</p>
+    </div>
+
+    <div class="mb-4">
+<div class="card shadow-sm mb-4">
+  <div class="card-body">
+    <div class="row align-items-center">
+      <div class="col-md-5 mb-3">
+        <canvas id="budgetPieChart" style="max-width: 350px; max-height: 350px;"></canvas>
+      </div>
+      <div class="col-md-7">
+        <h5 class="fw-bold text-dark mb-3">Category Budgets</h5>
+        <% budgets.forEach(b => { %>
+          <div class="mb-2">
+            <big>
+              <strong><%= b.name %></strong> — ₹<%= b.spent %> / ₹<%= b.limit_amount %> (<%= b.frequency %>)
+              <a href="/editbudgets/<%= b.id %>" class="btn-edit btn-small">edit</a>
+              <form action="/deletebudgets/<%= b.id %>" method="POST" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this transaction?');">
+                <button type="submit" class="btn-logout btn-small">delete</button>
+              </form>
+            </big>
+            <div class="progress" style="height: 12px;">
+              <div 
+                class="progress-bar <%= b.percent >= 100 ? 'bg-danger' : 'bg-success' %>" 
+                role="progressbar" 
+                style="width: <%= b.percent %>%"
+                aria-valuenow="<%= b.percent %>" 
+                aria-valuemin="0" 
+                aria-valuemax="100">
+                <small><%= Math.floor(b.percent) %>%</small>
+              </div>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+    </div>
+<div class="d-flex justify-content-end mt-3">
+  <a href="/budgets" class="btn btn-primary">Add Budget</a>
+</div>  </div>
+</div>
+
+
+
+
+
+    <!-- Recent Transactions -->
+    <div class="recent-transactions mt-5">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+  <h3 class="h4 fw-bold text-dark mb-0">Recent Transactions</h3>
+  <div class="d-flex align-items-center gap-3">
+    <!-- Search Input -->
+    <input 
+      type="text" 
+      id="searchInput" 
+      class="form-control" 
+      placeholder="Search by description/category..." 
+      onkeyup="filterTransactions()"
+    >
+
+    <!-- Sort Dropdown -->
+    <div class="dropdown">
+  <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Sort by
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><a class="dropdown-item" href="?sort=date-desc">Date ↓</a></li>
+    <li><a class="dropdown-item" href="?sort=date-asc">Date ↑</a></li>
+    <li><a class="dropdown-item" href="?sort=amount-desc">Amount ↓</a></li>
+    <li><a class="dropdown-item" href="?sort=amount-asc">Amount ↑</a></li>
+  </ul>
+</div>
+  </div>
+</div>
+      <div class="card">
+        <div class="card-body">
+        <table class="table table-hover w-100">
+            <thead>
+              <tr>
+                <th scope="col">Date</th>
+                <th scope="col">Description</th>
+                <th scope="col">Type</th>
+                <th scope="col">Category</th>
+                <th scope="col">Amount</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% if (transactions && transactions.length > 0) { %>
+                <% transactions.forEach(transaction => { %>
+                  <tr>
+                    <td><%= new Date(transaction.date).toLocaleDateString('en-IN') %></td>
+                    <td><%= transaction.description %></td>
+                    <td class="<%= transaction.type === 'income' ? 'text-success' : 'text-danger' %>">
+                      <%= transaction.type.charAt(0).toUpperCase() + transaction.type.slice(1) %>
+                    </td>
+                    <td><%= transaction.name %></td>
+                    <td>₹ <%= transaction.amount.toLocaleString('en-IN') %></td>
+                    <td>
+                      <div style="display: flex; gap: 10px; align-items: center;">
+                        <button class="btn-edit" onclick="window.location.href='/edit/<%= transaction.id %>'">edit</button>
+                        <form action="/delete/<%= transaction.id %>" method="POST" onsubmit="return confirm('Are you sure you want to delete this transaction?');">
+                          <button type="submit" class="btn-logout">delete</button>
+                        </form>
+                      </div>
+                    </td>
+                  </tr>
+                <% }) %>
+                
+              <% } else { %>
+                <tr>
+                  <td colspan="4" class="text-center text-secondary py-4">No transactions found. Add one to get started!</td>
+                </tr>
+              <% } %>
+
+            </tbody>
+        </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+  <div class="mb-4 text-center">
+       <button class="btn btn-primary" onclick="window.location.href='/add'">Add Transaction</button>
+    </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
+
+<script>
+  const ctx = document.getElementById('budgetPieChart').getContext('2d');
+
+  const budgetData = {
+    labels: <%- JSON.stringify(budgets.map(b => b.name)) %>,
+    datasets: [{
+      data: <%- JSON.stringify(budgets.map(b => b.spent)) %>,
+      backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc', '#f6c23e', '#e74a3b'],
+    }]
+  };
+
+  const budgetChart = new Chart(ctx, {
+    type: 'pie',
+    data: budgetData,
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: 'bottom',
+        }
+      }
+    }
+  });
+</script>
+
+
+<script>
+  function filterTransactions() {
+    const input = document.getElementById("searchInput").value.toLowerCase();
+    const rows = document.querySelectorAll("tbody tr");
+
+    rows.forEach(row => {
+      const date = row.children[0]?.textContent.toLowerCase();
+      const description = row.children[1]?.textContent.toLowerCase();
+      const type = row.children[2]?.textContent.toLowerCase();
+      const category = row.children[3]?.textContent.toLowerCase();
+      const amount = row.children[4]?.textContent.toLowerCase().replace(/[₹,]/g, '');
+
+      const match =
+        date.includes(input) ||
+        description.includes(input) ||
+        type.includes(input) ||
+        category.includes(input) ||
+        amount.includes(input);
+
+      row.style.display = match ? "" : "none";
+    });
+  }
+
+  
+
+</script>
+
+
+<%- include('../partials/footer') %>

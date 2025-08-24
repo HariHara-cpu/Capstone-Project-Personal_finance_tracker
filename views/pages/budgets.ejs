@@ -1,0 +1,41 @@
+<%- include('../partials/header') %>
+    <link rel="stylesheet" href="/css/login.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<div id="login-container">
+    <h2>Add Budget</h2>
+    <form action="/budget" method="POST">
+        <div>
+            <label for="amount">Amount</label>
+            <input type="text" name="amount" placeholder="Enter Amount" required />
+        </div>
+        <div class="mb-3">
+            <label for="category">Category</label>
+            <select name="category" id="category" required>
+                <option value="">--Select--</option>
+                <% categories.forEach(cat => { %>
+                <option value="<%= cat.id %>"><%= cat.name %></option>
+                <% }) %>
+                <% customCategories.forEach(cat => { %>
+                <option value="<%= cat.id %>"><%= cat.name %></option>
+                <% }) %>
+            </select>
+        </div>
+        <div>
+            <label for="frequency">Frequency</label>
+            <select name="frequency" id="frequency" required >
+                <option value="">--Select--</option>
+                <option value="day">Daily</option>
+                <option value="week">Weekly</option>
+                <option value="month">Monthly</option>
+                <option value="year">Yearly</option>
+            </select>
+        </div>
+        
+        <button type="submit" class="btn">Add</button>
+    </form>
+</div>
+
+
+<%- include('../partials/footer') %>

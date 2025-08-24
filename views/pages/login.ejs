@@ -1,0 +1,33 @@
+<%- include('../partials/header') %>
+    <link rel="stylesheet" href="/css/login.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div id="login-container">
+    <h2>Login</h2>
+    <form action="/login" method="POST">
+        <div>
+            <label for="name">Name</label>
+            <input type="text" name="name" placeholder="Enter Name" required />
+        </div>
+        <div>
+            <label for="email">Email</label>
+            <input type="text" name="username" placeholder="Enter Email" required />
+        </div>
+        <div>
+            <label for="password">Password</label>
+            <input type="password" name="password" placeholder="Enter Password" required />
+        </div>
+        <button type="submit" class="btn">Login</button>
+        <div >
+            <a href="/auth/google" role="button" class="btn">
+              <i class="fab fa-google"></i>
+              Sign In with Google
+            </a>
+          </div>
+    </form>
+</div>
+
+
+<%- include('../partials/footer') %>

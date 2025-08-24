@@ -1,0 +1,111 @@
+<%- include('../partials/header') %>
+    <link rel="stylesheet" href="/css/home.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+</head>
+<body>
+
+    <header class="d-flex flex-wrap align-items-center justify-content-between py-4 mb-5 border-bottom shadow-sm">
+      <a href="/" class="d-flex align-items-center mb-2 mb-md-0 text-dark text-decoration-none">
+        <span class="navbar-brand fs-4 fw-bold text-success">💰 Finance Tracker</span>
+      </a>
+      <ul class="nav nav-pills">
+        <li class="nav-item"><a href="/" class="nav-link px-3 text-muted">Home</a></li>
+        <li class="nav-item"><a href="#features" class="nav-link px-3 text-muted">Features</a></li>
+        <li class="nav-item"><a href="/dashboard" class="nav-link px-3 text-muted">Dashboard</a></li>
+      </ul>
+      <div class="text-end">
+        <% if (!user) { %>
+          <button class="btn btn-primary" onclick="window.location.href='/login'">Login</button>
+          <button class="btn btn-primary" onclick="window.location.href='/register'">Register</button>
+        <% } else { %>
+          <button class="btn-logout" onclick="window.location.href='/logout'">Logout</button>
+        <% } %>
+      </div>
+    </header>
+
+<main>
+  <!-- Hero Carousel Section -->
+  <div id="myCarousel" class="carousel slide mb-6" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="images/Take Control of Your Finances.jpg" class="d-block w-100 h-100" alt="Take Control of Your Finances">
+        <div class="container">
+          <div class="carousel-caption text-start bg-light bg-opacity-75 p-3 rounded animate__animated animate__fadeInUp">
+            <h1 class="display-4 fw-bold text-success">Take Control of Your Finances</h1>
+            <p class="lead">Track income, expenses, and savings—all in one place.</p>
+            <p><a class="btn btn-lg btn-primary shadow-sm" href="/auth/google">Start Now</a></p>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="images/Visual Reports.png" class="d-block w-100 h-100" alt="Visual Reports">
+        <div class="container">
+          <div class="carousel-caption bg-light bg-opacity-75 p-3 rounded animate__animated animate__fadeInUp">
+            <h1 class="display-4 fw-bold text-success">Visual Reports</h1>
+            <p class="lead">Get insights with charts and summaries of your spending habits.</p>
+            <p><a class="btn btn-lg btn-primary shadow-sm" href="/dashboard">View Dashboard</a></p>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="images/Secure & Easy to Use.webp" class="d-block w-100 h-100" alt="Secure & Easy to Use">
+        <div class="container">
+          <div class="carousel-caption text-end bg-light bg-opacity-75 p-3 rounded animate__animated animate__fadeInUp">
+            <h1 class="display-4 fw-bold text-success">Secure & Easy to Use</h1>
+            <p class="lead">Bank-level security with a simple user interface.</p>
+            <p><a class="btn btn-lg btn-primary shadow-sm" href="/auth/google">Join Now</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+
+  <!-- Features Section -->
+   
+  <div id="features" class="container marketing mt-6">
+    <h2 class="fw-bold text-success" style="font-size: 2.8rem">Features</h2>
+    <div class="row text-center g-4">
+      <div class="col-lg-4">
+        <div class="feature-card p-4 rounded shadow-sm">
+          <img src="images/Categorize Transactions.png" class="bd-placeholder-img rounded-circle mb-3" width="200" height="200" alt="Categorize">
+          <h2 class="fw-bold text-success">Categorize Transactions</h2>
+          <p class="text-muted">Track where your money is going with category-wise spending.</p>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="feature-card p-4 rounded shadow-sm">
+          <img src="images/Detailed Insights.webp" class="bd-placeholder-img rounded-circle mb-3" width="200" height="200" alt="Insights">
+          <h2 class="fw-bold text-success">Detailed Insights</h2>
+          <p class="text-muted">Pie charts, bar graphs, and trends at your fingertips.</p>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="feature-card p-4 rounded shadow-sm">
+          <img src="images/Bank-Level Security.jpg" class="bd-placeholder-img rounded-circle mb-3" width="200" height="200" alt="Secure">
+          <h2 class="fw-bold text-success">Bank-Level Security</h2>
+          <p class="text-muted">Your data is protected with secure authentication and encryption.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
+
+<%- include('../partials/footer') %>

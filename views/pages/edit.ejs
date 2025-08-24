@@ -1,0 +1,117 @@
+<%- include('../partials/header') %>
+    <link rel="stylesheet" href="/css/login.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<div id="login-container">
+<% const predefinedCategories = ["Food", "Shopping", "Rent", "Transportation", "Entertainment", "Utilities", "Healthcare", "Education", "Salary", "Freelance", "Investments", "Gifts"]; %>
+    <h2>Edit Transaction</h2>
+    <form action="/edit/<%= transaction.id %>" method="POST">
+        <div>
+            <label for="amount">Amount</label>
+            <input type="text" name="amount" value="<%= transaction.amount %>" required />
+        </div>
+        <div class="mb-3">
+            <label for="category">Category:</label>
+            <select name="category" id="category" required onchange="handleCategoryChange(this.value)">
+                <option value="">--Select--</option>
+                <option value="Food" data-type="expense" <%= categoryName === "Food" ? "selected" : "" %>>Food</option>
+                <option value="Shopping" data-type="expense" <%= categoryName === "Shopping" ? "selected" : "" %>>Shopping</option>
+                <option value="Rent" data-type="expense" <%= categoryName === "Rent" ? "selected" : "" %>>Rent</option>
+                <option value="Transportation" data-type="expense" <%= categoryName === "Transportation" ? "selected" : "" %>>Transportation</option>
+                <option value="Entertainment" data-type="expense" <%= categoryName === "Entertainment" ? "selected" : "" %>>Entertainment</option>
+                <option value="Utilities" data-type="expense" <%= categoryName === "Utilities" ? "selected" : "" %>>Utilities</option>
+                <option value="Healthcare" data-type="expense" <%= categoryName === "Healthcare" ? "selected" : "" %>>Healthcare</option>
+                <option value="Education" data-type="expense" <%= categoryName === "Education" ? "selected" : "" %>>Education</option>
+                <option value="Salary" data-type="income" <%= categoryName === "Salary" ? "selected" : "" %>>Salary</option>
+                <option value="Freelance" data-type="income" <%= categoryName === "Freelance" ? "selected" : "" %>>Freelance</option>
+                <option value="Investments" data-type="income" <%= categoryName === "Investments" ? "selected" : "" %>>Investments</option>
+                <option value="Gifts" data-type="income" <%= categoryName === "Gifts" ? "selected" : "" %>>Gifts</option>
+                <option value="custom" <%= !predefinedCategories.includes(categoryName) ? "selected" : "" %>>Other (Enter your own)</option>
+            </select>
+        </div>
+        <div class="mb-3" id="customCategoryContainer" style=<%= !predefinedCategories.includes(categoryName) ? "display: block;" : "display: none;" %>>
+            <label for="customCategory">Custom Category:</label>
+            <input type="text" name="customCategory" id="customCategory" placeholder="Enter your category" value="<%= isCustom ? categoryName : '' %>">
+        </div>
+
+        <div class="mb-3">
+            <label for="type">Type:</label>
+            <select name="type" id="type" required>
+                <option value="">--Select--</option>
+                <option value="income" <%= transaction.type === "income" ? "selected" : "" %>>Income</option>
+                <option value="expense" <%= transaction.type === "expense" ? "selected" : "" %>>Expense</option>
+            </select>
+        </div>
+        
+        <div>
+            <label for="description">Description</label>
+            <input type="text" name="description" value="<%= transaction.description %>" required />
+        </div>
+        
+        <div>
+            <label for="date">Date</label>
+            <input type="date" name="date" value="<%= formattedDate %>" required />
+        </div>
+        
+        <button type="submit" class="btn">Edit</button>
+    </form>
+</div>
+
+<script>
+  function toggleCustomCategory(value) {
+    const customField = document.getElementById("customCategoryContainer");
+    if (value === "custom") {
+      customField.style.display = "block";
+      document.getElementById("customCategory").required = true;
+    } else {
+      customField.style.display = "none";
+      document.getElementById("customCategory").required = false;
+    }
+  }
+  
+  const categoryTypeMap = {
+    "Food": "expense",
+    "Rent": "expense",
+    "Transportation": "expense",
+    "Entertainment": "expense",
+    "Utilities": "expense",
+    "Healthcare": "expense",
+    "Education": "expense",
+    "Shopping": "expense",
+    "Salary": "income",
+    "Freelance": "income",
+    "Investments": "income",
+    "Gifts": "income"
+  };
+
+  function handleCategoryChange(category) {
+    const typeSelect = document.getElementById("type");
+    const customField = document.getElementById("customCategoryContainer");
+
+    if (category === "custom") {
+      customField.style.display = "block";
+      document.getElementById("customCategory").required = true;
+
+      typeSelect.disabled = false;
+      typeSelect.value = ""; // Let user choose
+    } else {
+      customField.style.display = "none";
+      document.getElementById("customCategory").required = false;
+
+      // Auto-select and lock type
+      const autoType = categoryTypeMap[category];
+      if (autoType) {
+        typeSelect.value = autoType;
+        typeSelect.disabled = true;
+      } else {
+        typeSelect.value = "";
+        typeSelect.disabled = false;
+      }
+    }
+  }
+
+</script>
+
+
+<%- include('../partials/footer') %>

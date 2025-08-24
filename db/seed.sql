@@ -1,0 +1,15 @@
+INSERT INTO categories (id, user_id, name, type, color) VALUES
+(1, NULL, 'Food', 'expense', '#4e79a7'),
+(2, NULL, 'Rent', 'expense', '#f28e2b'),
+(3, NULL, 'Transportation', 'expense', '#e15759'),
+(4, NULL, 'Entertainment', 'expense', '#76b7b2'),
+(5, NULL, 'Utilities', 'expense', '#59a14f'),
+(6, NULL, 'Healthcare', 'expense', '#edc949'),
+(7, NULL, 'Education', 'expense', '#af7aa1'),
+(8, NULL, 'Shopping', 'expense', '#ff9da7'),
+(9, NULL, 'Other Expenses', 'expense', '#9c755f'),
+(10, NULL, 'Salary', 'income', '#2ca02c'),
+(11, NULL, 'Freelance', 'income', '#1f77b4'),
+(12, NULL, 'Investments', 'income', '#9467bd'),
+(13, NULL, 'Gifts', 'income', '#d62728'),
+(14, NULL, 'Other Income', 'income', '#8c564b');

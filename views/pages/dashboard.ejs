@@ -1,0 +1,109 @@
+<%- include('../partials/header') %>
+<link rel="stylesheet" href="/css/dashboard.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+<body>
+<div class="container mt-4">
+  <!-- Welcome section -->
+  <div class="welcome-section d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <h2 class="fw-bold">Welcome, <%= user.name %> 👋</h2>
+      <p class="text-muted">Here's an overview of your finances</p>
+    </div>
+    <div class="d-flex gap-2">
+      <a href="/" class="btn btn-primary">Home</a>
+      <button class="btn-logout" onclick="window.location.href='/logout'">Logout</button>
+    </div>
+  </div>
+
+  <!-- Filter tabs -->
+<ul class="nav nav-pills justify-content-center mb-3" id="filterTabs">
+  <li class="nav-item">
+    <a class="btn btn-primary <%= period==='day' ? 'active' : '' %>" href="/dashboard?period=day">Day</a>
+  </li>
+  <li class="nav-item">
+    <a class="btn btn-primary <%= period==='week' ? 'active' : '' %>" href="/dashboard?period=week">Week</a>
+  </li>
+  <li class="nav-item">
+    <a class="btn btn-primary <%= period==='month' ? 'active' : '' %>" href="/dashboard?period=month">Month</a>
+  </li>
+  <li class="nav-item">
+    <a class="btn btn-primary <%= period==='year' ? 'active' : '' %>" href="/dashboard?period=year">Year</a>
+  </li>
+  <li class="nav-item">
+    <a class="btn btn-primary <%= period==='period' ? 'active' : '' %>" href="#" id="periodBtn">Period</a>
+  </li>
+</ul>
+
+<!-- Date range form: shown if period==='period' -->
+<div id="periodForm" class="mb-3 text-center" style="<%= period==='period' ? '' : 'display:none;' %>">
+  <form method="GET" action="/dashboard" class="d-flex justify-content-center gap-2">
+    <input type="hidden" name="period" value="period">
+    <input type="date" name="from" value="<%= from || '' %>" required>
+    <input type="date" name="to" value="<%= to || '' %>" required>
+    <button type="submit" class="btn btn-primary">Filter</button>
+  </form>
+</div>
+
+<script>
+  document.getElementById('periodBtn').addEventListener('click', (e) => {
+    e.preventDefault();
+    const form = document.getElementById('periodForm');
+    form.style.display = (form.style.display === 'none' || form.style.display === '') ? 'block' : 'none';
+  });
+</script>
+
+  <div class="row">
+    <!-- Left: Chart -->
+    <div class="col-12 col-md-5 mb-4">
+      <div class="card p-3 shadow-sm">
+        <canvas id="expenseChart"></canvas>
+        <h4 class="text-center mt-2">Total Expense: ₹<span id="totalExpense">0</span></h4>
+        <h4 class="text-center mt-2">Total Income: ₹<span id="totalIncome">0</span></h4>
+        <h4 class="text-center mt-2">Balance: ₹<span id="totalBalance">0</span></h4>
+      </div>
+    </div>
+
+    <!-- Right: Categories -->
+    <div class="col-12 col-md-7">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h4 class="card-title mb-3">Expense Categories</h4>
+          <div id="categoryList">
+            <% categories.forEach(category => { %>
+              <% if (category.type === 'expense') { %>
+                <div class="d-flex justify-content-between align-items-center p-2 mb-2 rounded shadow-sm category-item"
+                  data-color="<%= category.color %>">
+                  <div class="d-flex align-items-center gap-2">
+                    <i class="<%= category.icon %> text-white"></i>
+                    <span class="fw-bold text-white"><%= category.name %></span>
+                  </div>
+                  <div class="text-white">
+                    <small><%= category.percentage %>%</small> &nbsp; ₹<%= category.amount %>
+                  </div>
+                </div>
+              <% } %>
+            <% }) %>
+          </div>
+        </div>
+        <a href="/add" class="btn btn-primary">Add Transactions</a>
+        <a href="/history" class="btn btn-primary">History/Budgets</a>
+      </div>      
+    </div>
+          
+
+<!-- Pass backend data to JS -->
+<script>
+  const categoriesData = <%- JSON.stringify(categories) %>;
+  const totalExpenseValue = <%= totalExpense %>;
+  const totalIncomeValue = <%= totalIncome %>;
+  const balanceValue = <%= balance %>;
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="/js/dashboard.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+
+<%- include('../partials/footer') %>

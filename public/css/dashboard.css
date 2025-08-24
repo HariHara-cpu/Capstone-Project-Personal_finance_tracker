@@ -1,0 +1,118 @@
+/* dashboard.css */
+
+body {
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #f1f5f9;
+    background-image: url("https://www.transparenttextures.com/patterns/diamond-upholstery.png");
+}
+
+/* Welcome section */
+.welcome-section h2 {
+  color: #212529; 
+}
+
+.welcome-section p {
+  color: #6c757d; 
+}
+
+/* Card customizations */
+.card {
+  border: none;
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+/* Button customization */
+.btn.btn-primary {
+  background: linear-gradient(90deg, #eab308, #15803d);
+  border: none;
+  font-weight: 600;
+  padding: 12px 24px;
+  border-radius: 50rem;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  margin: 5px;
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(234, 179, 8, 0.5);
+  background: linear-gradient(90deg, #facc15, #16a34a);
+}
+
+.btn-primary:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(234, 179, 8, 0.3);
+}
+
+/* Logout Button */
+.btn-logout {
+  background: linear-gradient(90deg, #f88a71, #dc3545);
+  color: #ffffff;
+  border: none;
+  margin: 5px;
+  padding: 0.5rem 1.5rem;
+  font-weight: 500;
+  border-radius: 50rem;
+  text-decoration: none;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-logout:hover { 
+  background: linear-gradient(90deg, #ef4444, #c82333);
+  box-shadow: 0 4px 10px rgb(255, 0, 25); 
+}
+
+.btn-delete {
+  background: linear-gradient(90deg, #f88a71, #dc3545);
+  display: inline;
+}
+
+.btn-edit {
+  background: linear-gradient(90deg, #23b6ff,#0d6efd);
+  color: #ffffff;
+  border: none;
+  padding: 0.5rem 1.5rem;
+  font-weight: 500;
+  border-radius: 50rem;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-edit:hover {
+  background: linear-gradient(90deg, #00a6ff, #0066ff);
+  box-shadow: 0 0 10px rgba(0, 26, 255, 0.4); /* blue glow */
+}
+
+.btn-small{
+  padding: 0.20rem 0.25rem;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+/* Recent transactions table */
+.recent-transactions .card {
+  border: 1px solid #dee2e6; 
+}
+
+.table th {
+  color: #6c757d; 
+}
+
+.table td.text-green-600 {
+  color: #198754; 
+}
+
+.table td.text-red-600 {
+  color: #dc3545; 
+}
+
+.table td.text-gray-500 {
+  color: #6c757d; 
+}
+

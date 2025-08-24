@@ -1,0 +1,234 @@
+/* Global Reset & Typography */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: #f1f5f9;
+  background-blend-mode: overlay;
+  color: #475569;
+  line-height: 1.7;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Navbar Styling */
+header {
+  background: #ffffff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  text-align: center;
+}
+
+/* Gradient Buttons */
+.btn.btn-primary {
+  background: linear-gradient(90deg, #eab308, #15803d);
+  border: none;
+  font-weight: 600;
+  padding: 12px 24px;
+  margin-right: 10px;
+  border-radius: 50rem;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(234, 179, 8, 0.5);
+  background: linear-gradient(90deg, #facc15, #16a34a);
+}
+
+.btn-primary:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(234, 179, 8, 0.3);
+}
+
+.btn-logout {
+  background: linear-gradient(90deg, #f88a71, #dc3545);
+  color: #ffffff;
+  border: none;
+  padding: 0.5rem 1.5rem;
+  font-weight: 500;
+  margin-right: 10px;
+  border-radius: 50rem;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-logout:hover { 
+  background: linear-gradient(90deg, #ef4444, #c82333);
+  box-shadow: 0 4px 10px rgb(255, 0, 25); 
+}
+
+
+/* Carousel Styling */
+.carousel-item {
+  height: 70vh;
+  min-height: 400px;
+  position: relative;
+}
+
+.carousel-item svg {
+  filter: brightness(0.7);
+}
+
+.carousel-caption {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 10px;
+  padding: 20px;
+  backdrop-filter: blur(5px);
+  bottom: 20%;
+  max-width: 80%;
+  margin: 0 auto;
+}
+
+.carousel-caption h1 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  background: linear-gradient(to right, #eab308, #15803d);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin-bottom: 15px;
+}
+
+.carousel-caption p {
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
+  color: #1e293b;
+  font-weight: 500;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+  width: 8%;
+  background: rgba(0, 0, 0, 0.2);
+  transition: background 0.3s ease;
+}
+
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+  background: rgba(0, 0, 0, 0.4);
+}
+
+/* Features Section */
+.marketing {
+  padding: 80px 20px;
+  background-color: #ffffff;
+  border-radius: 15px;
+  margin: 40px 0;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.marketing .col-lg-4 {
+  transition: transform 0.3s ease;
+  padding: 20px;
+}
+
+.marketing .col-lg-4:hover {
+  transform: translateY(-10px);
+}
+
+.marketing h2 {
+  font-size: clamp(1.4rem, 3vw, 1.8rem);
+  font-weight: 600;
+  background: linear-gradient(to right, #15803d, #eab308);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin-top: 15px;
+}
+
+.marketing p {
+  font-size: 1rem;
+  color: #475569;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.marketing img {
+  transition: transform 0.3s ease;
+}
+
+.marketing img:hover {
+  transform: scale(1.1);
+}
+
+/* Footer */
+footer {
+  font-size: 0.9rem;
+  color: #64748b;
+  background: #ffffff;
+  padding: 20px 0;
+  margin-top: auto;
+}
+
+footer a {
+  color: #15803d;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+footer a:hover {
+  color: #16a34a;
+  text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .carousel-item {
+    height: 50vh;
+    min-height: 300px;
+  }
+
+  .carousel-caption {
+    bottom: 10%;
+    padding: 15px;
+  }
+
+  .carousel-caption h1 {
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+  }
+
+  .carousel-caption p {
+    font-size: clamp(0.9rem, 2vw, 1.1rem);
+  }
+
+  .marketing {
+    padding: 40px 15px;
+  }
+
+  .marketing .col-lg-4 {
+    margin-bottom: 30px;
+  }
+
+  .nav {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .nav-link {
+    padding: 8px 0;
+  }
+}
+
+@media (max-width: 576px) {
+  .navbar-brand {
+    font-size: 1.2rem;
+  }
+
+  .btn-primary {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+
+  .text-end {
+    text-align: center !important;
+    margin-top: 10px;
+  }
+}
